@@ -12,6 +12,35 @@ axios.interceptors.request.use(
     return Promise.reject(err);
   }
 );
+// axios.interceptors.response.use(
+//   function(response) {
+//     return response;
+//   },
+//   function(error) {
+//     const originalRequest = error.config;
+//     console.log("e");
+//     if (error.code !== "ECONNABORTED" && error.response.status === 401) {
+//       if (!originalRequest._retry) {
+//         originalRequest._retry = true;
+//         return axios
+//           .post("/tokens/auth", {
+//             refreshToken: axios(),
+//             grantType: "refresh_token",
+//             clientId: "website"
+//           })
+//           .then(response => {
+//             localStorage.authentication = JSON.stringify(response.data);
+//             axios();
+//             return axios(originalRequest);
+//           });
+//       } else {
+//         localStorage.removeItem("authentication");
+//         console.log("go to login!!");
+//       }
+//     }
+//     return Promise.reject(error);
+//   }
+// );
 
 function ApiRequest() {}
 
@@ -26,7 +55,7 @@ ApiRequest.prototype = {
         "Content-Type": "application/json"
       },
       url,
-      data: JSON.stringify(data)
+      data
     });
   },
   put: (url, data) => {
