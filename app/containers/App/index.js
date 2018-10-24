@@ -1,14 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
-import PropTypes from "prop-types";
-import { getMonthCalendar } from "../../redux/action/calendar";
+import { Link } from "react-router-dom";
 import "./app.scss";
+import { logoutUser } from "../../redux/action/login";
 
-const mapStateToProps = ({ calendar }) => ({
-  calendar
+const mapStateToProps = ({ login }) => ({
+  login
 });
 const mapDispatchToProps = dispatch => ({
-  getMonthCalendar: (year, month) => dispatch(getMonthCalendar(year, month))
+  logoutUser: tokenFlag => dispatch(logoutUser(tokenFlag))
 });
 
 class App extends React.Component {
@@ -16,21 +16,24 @@ class App extends React.Component {
     super(props);
     this.state = {};
   }
+  logout = () => {
+    this.props.logoutUser(true);
+  };
   render() {
     return (
       <div className="app-wrapper">
-        <span>HI</span>
-        <span>HI</span>
+        <Link to="login" onClick={this.logout}>
+          Logout
+        </Link>
+        <div>Dashboard</div>
+        <div>Dashboard</div>
+        <div>Dashboard</div>
+        <div>Dashboard</div>
+        <div>Dashboard</div>
       </div>
     );
   }
 }
-App.propTypes = {
-  getMonthCalendar: PropTypes.func.isRequired,
-  calendar: PropTypes.shape({
-    eventForMonth: PropTypes.array.isRequired
-  }).isRequired
-};
 export default connect(
   mapStateToProps,
   mapDispatchToProps
