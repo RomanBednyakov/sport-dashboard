@@ -2,3 +2,4 @@ export const LOGINING = "LOGINING";
 export const LOGOUT = "LOGOUT";
 export const GET_REFRESH_TOKEN = "GET_REFRESH_TOKEN";
 export const GET_REFRESH_TOKEN_ERROR = "GET_REFRESH_TOKEN_ERROR";
+export const GET_FACILITY_ALL = "GET_FACILITY_ALL";

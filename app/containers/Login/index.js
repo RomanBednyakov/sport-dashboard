@@ -3,6 +3,10 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { loginUser } from "../../redux/action/login";
 import "./login.scss";
+import { Formik } from "formik";
+import logo from "../../assets/images/logo.svg";
+import Vector from "../../assets/images/Vector.svg";
+import helpers from "../../helpers";
 
 const mapStateToProps = ({ login }) => ({
   login
@@ -10,56 +14,112 @@ const mapStateToProps = ({ login }) => ({
 const mapDispatchToProps = dispatch => ({
   loginUser: (login, password) => dispatch(loginUser(login, password))
 });
-
+async function onSubmitLogin(func, setSubmitting) {
+  await func;
+  await setSubmitting(false);
+}
 class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      login: "",
-      password: ""
+      img: false
     };
   }
-  handleLogin = event => {
-    this.setState({ login: event.target.value });
-  };
-  handlePassword = event => {
-    this.setState({ password: event.target.value });
-  };
-  handleSubmit = event => {
-    event.preventDefault();
-    this.props.loginUser(this.state.login, this.state.password);
+  changeStateCheckbox = () => {
+    this.setState({ img: !this.state.img });
   };
   render() {
     if (this.props.login.isAuthenticated) {
       return <Redirect to="/" />;
     }
+    const imgChech = this.state.img ? <img src={Vector} alt="Vector" /> : "";
+    helpers.saveRememberMe(String(this.state.img));
     return (
       <div className="login">
-        <h1 className="form_title">Log in</h1>
-        <form className="signIn-form">
-          <input
-            name="login"
-            className="form_input"
-            type="text"
-            placeholder="username"
-            onChange={this.handleLogin}
-          />
-          <input
-            name="pass"
-            type="text"
-            className="form_input"
-            placeholder="password"
-            onChange={this.handlePassword}
-          />
-          <a className="button form_Button" onClick={this.handleSubmit}>
-            Log In
-          </a>
-        </form>
-        {this.props.errorLogin ? (
-          <div className="form_error">Wrong login or password</div>
-        ) : (
-          ""
-        )}
+        <div className="login-block">
+          <img className="login-block_logo" src={logo} alt="logo" />
+          <Formik
+            initialValues={{ email: "", password: "" }}
+            validate={values => {
+              let errors = {};
+              if (!values.email) {
+                errors.email = "";
+              } else if (
+                !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+              ) {
+                errors.email = "Invalid email address";
+              }
+              return errors;
+            }}
+            onSubmit={(values, { setSubmitting }) => {
+              onSubmitLogin(
+                this.props.loginUser(values.email, values.password),
+                setSubmitting
+              );
+            }}
+          >
+            {({
+              values,
+              errors,
+              touched,
+              handleChange,
+              handleBlur,
+              handleSubmit,
+              isSubmitting
+            }) => (
+              <form onSubmit={handleSubmit}>
+                <div
+                  className={
+                    errors.email && touched.email && errors.email
+                      ? "errorImg"
+                      : "blockImg"
+                  }
+                >
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="Email"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.email}
+                  />
+                </div>
+                <div
+                  className={
+                    errors.password && touched.password && errors.password
+                      ? "errorImg"
+                      : "blockImg"
+                  }
+                >
+                  <input
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.password}
+                  />
+                  {errors.password && touched.password && errors.password}
+                </div>
+                <div className="checkbox-block">
+                  <span
+                    onClick={this.changeStateCheckbox}
+                    className="checkbox-block-input"
+                  >
+                    {imgChech}
+                  </span>
+                  <span className="checkbox-block-title">Remember me</span>
+                </div>
+                <button type="submit" disabled={isSubmitting}>
+                  SING IN
+                </button>
+              </form>
+            )}
+          </Formik>
+          <div className="login__forgotPass">
+            <span>Forgot password?</span>
+          </div>
+        </div>
       </div>
     );
   }

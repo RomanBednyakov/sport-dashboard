@@ -1,0 +1,116 @@
+.header {
+  height: 91px;
+  box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.07);
+  background-color: #ffffff;
+  display: flex;
+  padding: 19px 50px;
+  align-items: center;
+  .header_logo {
+    margin-right: 100px;
+    min-width: 170px;
+    width: 170px;
+    height: 20px;
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+  .header_search {
+    width: 514px;
+    //border-radius: 5px;
+    //background-color: #f6f6f6;
+    margin-right: 21px;
+  }
+  .header_date {
+    margin-right: auto;
+  }
+  .header_notif{
+    margin-right: 40px;
+    display: flex;
+    align-items: center;
+    img {
+      cursor: pointer;
+      margin-right: 12px;
+    }
+    .header_notif-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #747987;
+    }
+  }
+  .header_message {
+    margin-right: 40px;
+    display: flex;
+    align-items: center;
+    img {
+      cursor: pointer;
+      margin-right: 12px;
+    }
+    .header_message-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #747987;
+    }
+  }
+  .header_avatar {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 49px;
+    height: 49px;
+  }
+}
+.content {
+  display: flex;
+  //height: calc(100vh - 91px);
+  min-height: calc(100vh - 91px);
+}
+.nav {
+  min-width: 279px;
+  padding: 21px 0;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.05);
+  background-color: #ffffff;
+  .nav-block {
+    text-decoration: none;
+    height: 55px;
+    display: flex;
+    padding-left: 48px;
+    align-items: center;
+    font-size: 18px;
+    color: #636c6e;
+    font-weight: 600;
+    svg {
+      margin-right: 24px;
+      path {
+        fill: #aaaaaa;
+      }
+    }
+  }
+  .nav-block:hover {
+    background-color: #f5faff;
+    //color: #2f80ed;
+  }
+  .nav-block {
+    border-left: 2px solid transparent;
+  }
+  .activeNav {
+    .nav-block {
+      border-left: 2px solid #2f80ed;
+      background-color: #f5faff;
+      color: #2f80ed;
+      svg path {
+        fill: #2f80ed;
+      }
+    }
+  }
+}
+.section {
+  width: 100%;
+  min-height: 100%;
+}
+.fds {
+  svg path {
+    fill: red;
+  }
+}
