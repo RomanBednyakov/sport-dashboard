@@ -9,7 +9,7 @@ const initial = {
   isAuthenticated: null
 };
 
-const calendar = (state = initial, action) => {
+const login = (state = initial, action) => {
   // const { data } = action;
   switch (action.type) {
     case LOGINING:
@@ -28,7 +28,6 @@ const calendar = (state = initial, action) => {
         isAuthenticated: action.isAuthenticated
       };
     case LOGOUT:
-      console.log("@", action.isAuthenticated);
       return {
         ...state,
         isAuthenticated: action.isAuthenticated
@@ -37,4 +36,4 @@ const calendar = (state = initial, action) => {
       return state;
   }
 };
-export default calendar;
+export default login;

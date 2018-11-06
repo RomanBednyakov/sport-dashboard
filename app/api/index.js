@@ -1,10 +1,20 @@
 import axios from "axios";
-
+// import helpers from "../helpers";
+// import { getNewToken } from "../redux/action/login";
+// let pending = false;
 axios.interceptors.request.use(
   config => {
+    // const ref_token = localStorage.getItem("refresh_token");
     const newConfig = config;
-    if (localStorage.getItem("token") != null) {
-      newConfig.headers.Authorization = localStorage.getItem("token");
+    if (localStorage.getItem("access_token") != null) {
+      // if (helpers.isTokenExpired() && !pending) {
+      //   const res = getNewToken(ref_token);
+      //   pending = true;
+      //   console.log("222", res[1]);
+      // }
+      newConfig.headers.Authorization = `Bearer ${localStorage
+        .getItem("access_token")
+        .slice(1, -1)}`;
     }
     return newConfig;
   },
@@ -17,8 +27,8 @@ axios.interceptors.request.use(
 //     return response;
 //   },
 //   function(error) {
+//     console.log(error);
 //     const originalRequest = error.config;
-//     console.log("e");
 //     if (error.code !== "ECONNABORTED" && error.response.status === 401) {
 //       if (!originalRequest._retry) {
 //         originalRequest._retry = true;
@@ -34,7 +44,8 @@ axios.interceptors.request.use(
 //             return axios(originalRequest);
 //           });
 //       } else {
-//         localStorage.removeItem("authentication");
+//         localStorage.removeItem("access_token");
+//         localStorage.removeItem("refresh_token");
 //         console.log("go to login!!");
 //       }
 //     }
