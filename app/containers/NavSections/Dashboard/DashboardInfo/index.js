@@ -17,7 +17,6 @@ class DashboardInfo extends React.Component {
   };
   render() {
     const { facilityName } = this.props.facilityActive;
-    console.log(this.props.facilityActive);
     return (
       <div className="dashboard_blog">
         <div className="dashboard_blog_info">

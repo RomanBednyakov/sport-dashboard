@@ -63,21 +63,56 @@ class SelectDate extends React.Component {
       startDate: moment(),
       endDate: moment(),
       optionsSelect: [
-        { value: "1 days", label: "1 days" },
-        { value: "7 days", label: "7 days" },
-        { value: "2 Weeks", label: "2 weeks" },
-        { value: "1 month", label: "1 month" },
-        { value: "2 month", label: "2 month" },
+        { value: "1 days", label: "1 days", valueName: "days", valueDate: 1 },
+        { value: "7 days", label: "7 days", valueName: "days", valueDate: 7 },
+        {
+          value: "2 Weeks",
+          label: "2 weeks",
+          valueName: "weeks",
+          valueDate: 2
+        },
+        {
+          value: "1 month",
+          label: "1 month",
+          valueName: "month",
+          valueDate: 1
+        },
+        {
+          value: "2 month",
+          label: "2 month",
+          valueName: "month",
+          valueDate: 2
+        },
         { value: "Custom", label: "Custom" }
       ]
     };
   }
   handleChangeSelect = selectedOption => {
-    // const hashMapFilter = {};
-    // selectedOption.forEach(item => {
-    //   hashMapFilter[item.value] = item;
-    // });
-    // this.props.filterTypeSelect(hashMapFilter);
+    const startDay = moment().format("MM-DD-YYYY");
+    if (selectedOption.value !== "Custom") {
+      if (selectedOption.valueName === "days") {
+        this.props.selectFasilityDate(
+          startDay,
+          moment()
+            .add(selectedOption.valueDate, "days")
+            .format("MM-DD-YYYY")
+        );
+      } else if (selectedOption.valueName === "weeks") {
+        this.props.selectFasilityDate(
+          startDay,
+          moment()
+            .add(14, "days")
+            .format("MM-DD-YYYY")
+        );
+      } else if (selectedOption.valueName === "month") {
+        this.props.selectFasilityDate(
+          startDay,
+          moment()
+            .add(selectedOption.valueDate, "M")
+            .format("MM-DD-YYYY")
+        );
+      }
+    }
     this.setState({ selectedOption });
   };
   handleChange = ({ startDate, endDate }) => {
@@ -87,7 +122,10 @@ class SelectDate extends React.Component {
     if (startDate.isAfter(endDate)) {
       endDate = startDate;
     }
-
+    this.props.selectFasilityDate(
+      startDate.format("MM-DD-YYYY"),
+      endDate.format("MM-DD-YYYY")
+    );
     this.setState({ startDate, endDate });
   };
 

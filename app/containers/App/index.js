@@ -25,7 +25,9 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      facilityActive: {}
+      facilityActive: {},
+      startDay: null,
+      endDay: null
     };
     this.convertFasility = [];
     this.hashMapFasility = {};
@@ -53,6 +55,9 @@ class App extends React.Component {
   selectFasility = id => {
     this.setState({ facilityActive: this.hashMapFasility[id] });
   };
+  selectFasilityDate = (startDay, endDay) => {
+    this.setState({ startDay, endDay });
+  };
   // logout = () => {
   //   this.props.logoutUser(true);
   // };
@@ -73,7 +78,7 @@ class App extends React.Component {
             />
           </div>
           <div className="header_date">
-            <SelectDate />
+            <SelectDate selectFasilityDate={this.selectFasilityDate} />
           </div>
           <div className="header_notif">
             <img src={ball} alt="ball" />
@@ -119,6 +124,11 @@ class App extends React.Component {
                         <item.comFile
                           {...props}
                           facilityActive={this.state.facilityActive}
+                          facilityActiveId={
+                            this.state.facilityActive.facilityId
+                          }
+                          endDay={this.state.endDay}
+                          startDay={this.state.startDay}
                         />
                       )}
                     />
