@@ -6,7 +6,8 @@ import {
 
 const initial = {
   facilityArr: [],
-  facilityDate: {}
+  facilityDate: {},
+  activeDateSelect: {}
 };
 
 const facility = (state = initial, action) => {
@@ -25,7 +26,8 @@ const facility = (state = initial, action) => {
     case GET_FACILITY_SELECT_DATE:
       return {
         ...state,
-        facilityDate: action.facilityDate
+        facilityDate: action.facilityDate,
+        activeDateSelect: action.activeDateSelect
       };
     default:
       return state;

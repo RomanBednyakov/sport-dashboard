@@ -8,17 +8,6 @@ import helpers from "../../helpers/index";
 import config from "../../config";
 
 export function getFacilityAll() {
-  // console.log(username, password);
-  // const data = {
-  //   client_id: "mobile"
-  // };
-  // let formBody = [];
-  // for (let property in data) {
-  //   let encodedKey = encodeURIComponent(property);
-  //   let encodedValue = encodeURIComponent(data[property]);
-  //   formBody.push(encodedKey + "=" + encodedValue);
-  // }
-  // formBody = formBody.join("&");
   return dispatch => {
     return api
       .get(`${config.baseUrl}/facility/all`)
@@ -52,7 +41,7 @@ export function getFacilityToday(id) {
   };
 }
 export function getFacilitySelectDate(id, startDay, endDay) {
-  console.log(id, startDay, endDay);
+  const activeDateSelect = { id: id, startDay: startDay, endDay: endDay };
   return dispatch => {
     return api
       .get(
@@ -64,7 +53,8 @@ export function getFacilitySelectDate(id, startDay, endDay) {
       .then(response =>
         dispatch({
           type: GET_FACILITY_SELECT_DATE,
-          facilityDate: response.data
+          facilityDate: response.data,
+          activeDateSelect: activeDateSelect
         })
       )
       .catch(error => {

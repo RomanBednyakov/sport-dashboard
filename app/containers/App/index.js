@@ -25,9 +25,9 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      facilityActive: {},
-      startDay: null,
-      endDay: null
+      facilityActive: {}
+      // startDay: null,
+      // endDay: null
     };
     this.convertFasility = [];
     this.hashMapFasility = {};
@@ -55,9 +55,9 @@ class App extends React.Component {
   selectFasility = id => {
     this.setState({ facilityActive: this.hashMapFasility[id] });
   };
-  selectFasilityDate = (startDay, endDay) => {
-    this.setState({ startDay, endDay });
-  };
+  // selectFasilityDate = (startDay, endDay) => {
+  //   this.setState({ startDay, endDay });
+  // };
   // logout = () => {
   //   this.props.logoutUser(true);
   // };
@@ -127,8 +127,8 @@ class App extends React.Component {
                           facilityActiveId={
                             this.state.facilityActive.facilityId
                           }
-                          endDay={this.state.endDay}
-                          startDay={this.state.startDay}
+                          // endDay={this.state.endDay}
+                          // startDay={this.state.startDay}
                         />
                       )}
                     />
