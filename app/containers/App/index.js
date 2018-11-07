@@ -1,5 +1,4 @@
 import React from "react";
-import { connect } from "react-redux";
 import { Link, Route, Router, Switch } from "react-router-dom";
 import "./app.scss";
 // import { logoutUser } from "../../redux/action/login";
@@ -10,61 +9,16 @@ import nabTabs from "../../helpers/navTabs";
 import logo from "../../assets/images/logo.svg";
 import ball from "../../assets/images/ball.svg";
 import messageImg from "../../assets/images/message.svg";
-import { getFacilityAll } from "../../redux/action/facility";
-
-const mapStateToProps = ({ login, facility }) => ({
-  login,
-  facility
-});
-const mapDispatchToProps = dispatch => ({
-  // logoutUser: tokenFlag => dispatch(logoutUser(tokenFlag)),
-  getFacilityAll: () => dispatch(getFacilityAll())
-});
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      facilityActive: {},
-      startDay: null,
-      endDay: null
-    };
-    this.convertFasility = [];
-    this.hashMapFasility = {};
+    this.state = {};
   }
-  componentDidMount() {
-    this.props.getFacilityAll();
-  }
-  filterFasilityAll = fasility => {
-    if (Object.keys(this.state.facilityActive).length === 0) {
-      const convertFasilitys = [];
-      const hashMapFasilitys = {};
-      fasility.forEach(item => {
-        const convertEvent = {
-          value: item.facilityName,
-          id: item.facilityId,
-          label: item.facilityName
-        };
-        convertFasilitys.push(convertEvent);
-        hashMapFasilitys[item.facilityId] = item;
-      });
-      this.convertFasility = convertFasilitys;
-      this.hashMapFasility = hashMapFasilitys;
-    }
-  };
-  selectFasility = id => {
-    this.setState({ facilityActive: this.hashMapFasility[id] });
-  };
-  selectFasilityDate = (startDay, endDay) => {
-    this.setState({ startDay, endDay });
-  };
   // logout = () => {
   //   this.props.logoutUser(true);
   // };
   render() {
-    if (this.props.facility.facilityArr.length > 0) {
-      this.filterFasilityAll(this.props.facility.facilityArr);
-    }
     return (
       <div className="app-wrapper">
         <header className="header">
@@ -72,13 +26,10 @@ class App extends React.Component {
             <img src={logo} alt="logo" />
           </div>
           <div className="header_search">
-            <SelectFilter
-              optionsFasility={this.convertFasility}
-              selectFasility={this.selectFasility}
-            />
+            <SelectFilter />
           </div>
           <div className="header_date">
-            <SelectDate selectFasilityDate={this.selectFasilityDate} />
+            <SelectDate />
           </div>
           <div className="header_notif">
             <img src={ball} alt="ball" />
@@ -120,17 +71,7 @@ class App extends React.Component {
                     <Route
                       key={item.name}
                       path={item.urlName}
-                      render={props => (
-                        <item.comFile
-                          {...props}
-                          facilityActive={this.state.facilityActive}
-                          facilityActiveId={
-                            this.state.facilityActive.facilityId
-                          }
-                          endDay={this.state.endDay}
-                          startDay={this.state.startDay}
-                        />
-                      )}
+                      render={props => <item.comFile {...props} />}
                     />
                   );
                 })}
@@ -142,7 +83,4 @@ class App extends React.Component {
     );
   }
 }
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App);
+export default App;

@@ -1,0 +1,34 @@
+.dashboard_blog-buttons {
+  display: flex;
+  flex-wrap: wrap;
+}
+.dashboard_buttons_block {
+  position: relative;
+  width: 200px;
+  margin: 0 23px 23px 0;
+  height: 78px;
+  border-radius: 3px;
+  padding: 11px 15px;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  .dashboard_buttons_block-count {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffffff;
+    margin-bottom: auto;
+  }
+  .dashboard_buttons_block-name {
+    font-size: 16px;
+    font-weight: 600;
+    display: flex;
+    justify-content: flex-end;
+    color: #ffffff;
+  }
+  .dashboard_buttons_block-img {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    display: none;
+  }
+}

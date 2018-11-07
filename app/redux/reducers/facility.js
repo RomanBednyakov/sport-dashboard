@@ -1,12 +1,7 @@
-import {
-  GET_FACILITY_ALL,
-  GET_FACILITY_TODAY,
-  GET_FACILITY_SELECT_DATE
-} from "../../constants/ActionTypes";
+import { GET_FACILITY_ALL } from "../../constants/ActionTypes";
 
 const initial = {
-  facilityArr: [],
-  facilityDate: {}
+  facilityArr: []
 };
 
 const facility = (state = initial, action) => {
@@ -16,16 +11,6 @@ const facility = (state = initial, action) => {
       return {
         ...state,
         facilityArr: action.facilityArr
-      };
-    case GET_FACILITY_TODAY:
-      return {
-        ...state,
-        facilityDate: action.facilityDate
-      };
-    case GET_FACILITY_SELECT_DATE:
-      return {
-        ...state,
-        facilityDate: action.facilityDate
       };
     default:
       return state;

@@ -1,5 +1,6 @@
 import React from "react";
 import Select, { components } from "react-select";
+import { connect } from "react-redux";
 import "./selectDate.scss";
 import SVG from "react-inlinesvg";
 import arrowIcon from "../../assets/images/icons/arrow.svg";
@@ -7,6 +8,16 @@ import calendarIcon from "../../assets/images/calendar.svg";
 import DatePicker from "react-datepicker";
 import moment from "moment";
 import "react-datepicker/dist/react-datepicker.css";
+import { addFacilitySelectDate } from "../../redux/action/facilityFilter";
+
+const mapStateToProps = ({ facilityFilter }) => ({
+  facilityFilter
+});
+
+const mapDispatchToProps = dispatch => ({
+  addFacilitySelectDate: (start, end) =>
+    dispatch(addFacilitySelectDate(start, end))
+});
 
 const colourStyles = {
   control: styles => ({ ...styles, backgroundColor: "white" }),
@@ -91,21 +102,21 @@ class SelectDate extends React.Component {
     const startDay = moment().format("MM-DD-YYYY");
     if (selectedOption.value !== "Custom") {
       if (selectedOption.valueName === "days") {
-        this.props.selectFasilityDate(
+        this.props.addFacilitySelectDate(
           startDay,
           moment()
             .add(selectedOption.valueDate, "days")
             .format("MM-DD-YYYY")
         );
       } else if (selectedOption.valueName === "weeks") {
-        this.props.selectFasilityDate(
+        this.props.addFacilitySelectDate(
           startDay,
           moment()
             .add(14, "days")
             .format("MM-DD-YYYY")
         );
       } else if (selectedOption.valueName === "month") {
-        this.props.selectFasilityDate(
+        this.props.addFacilitySelectDate(
           startDay,
           moment()
             .add(selectedOption.valueDate, "M")
@@ -122,7 +133,7 @@ class SelectDate extends React.Component {
     if (startDate.isAfter(endDate)) {
       endDate = startDate;
     }
-    this.props.selectFasilityDate(
+    this.props.addFacilitySelectDate(
       startDate.format("MM-DD-YYYY"),
       endDate.format("MM-DD-YYYY")
     );
@@ -200,5 +211,7 @@ class SelectDate extends React.Component {
     );
   }
 }
-
-export default SelectDate;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SelectDate);
