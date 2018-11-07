@@ -1,8 +1,21 @@
 import React from "react";
 import Select, { components } from "react-select";
+import { connect } from "react-redux";
 import "./selectFilter.scss";
 import SVG from "react-inlinesvg";
 import searchIcon from "../../assets/images/seacrch.svg";
+import { addSelectFacility } from "../../redux/action/facilityFilter";
+import { getFacilityAll } from "../../redux/action/facility";
+
+const mapStateToProps = ({ facilityFilter, facility }) => ({
+  facilityFilter,
+  facility
+});
+
+const mapDispatchToProps = dispatch => ({
+  addSelectFacility: (id, active) => dispatch(addSelectFacility(id, active)),
+  getFacilityAll: () => dispatch(getFacilityAll())
+});
 
 const colourStyles = {
   control: styles => ({ ...styles, backgroundColor: "white" }),
@@ -56,14 +69,46 @@ class SelectFilter extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedOption: null
+      selectedOption: null,
+      facilityActive: {}
     };
+    this.convertFasility = [];
+    this.hashMapFasility = {};
   }
+  componentDidMount() {
+    this.props.getFacilityAll();
+  }
+  filterFasilityAll = fasility => {
+    if (Object.keys(this.state.facilityActive).length === 0) {
+      const convertFasilitys = [];
+      const hashMapFasilitys = {};
+      fasility.forEach(item => {
+        const convertEvent = {
+          value: item.facilityName,
+          id: item.facilityId,
+          label: item.facilityName
+        };
+        convertFasilitys.push(convertEvent);
+        hashMapFasilitys[item.facilityId] = item;
+      });
+      this.convertFasility = convertFasilitys;
+      this.hashMapFasility = hashMapFasilitys;
+    }
+  };
   handleChangeSelect = selectedOption => {
-    this.props.selectFasility(selectedOption.id);
-    this.setState({ selectedOption });
+    this.props.addSelectFacility(
+      selectedOption.id,
+      this.hashMapFasility[selectedOption.id]
+    );
+    this.setState({
+      selectedOption,
+      facilityActive: this.hashMapFasility[selectedOption.id]
+    });
   };
   render() {
+    if (this.props.facility.facilityArr.length > 0) {
+      this.filterFasilityAll(this.props.facility.facilityArr);
+    }
     const DropdownIndicator = props => {
       return (
         components.DropdownIndicator && (
@@ -84,7 +129,7 @@ class SelectFilter extends React.Component {
           placeholder="Type Facility Name"
           hideSelectedOptions={false}
           styles={colourStyles}
-          options={this.props.optionsFasility}
+          options={this.convertFasility}
           classNamePrefix="my-select"
         />
       </div>
@@ -92,4 +137,8 @@ class SelectFilter extends React.Component {
   }
 }
 
-export default SelectFilter;
+// export default SelectFilter;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SelectFilter);

@@ -16,7 +16,7 @@ class DashboardInfo extends React.Component {
     this.setState({ isOpen: !this.state.isOpen });
   };
   render() {
-    const { facilityName } = this.props.facilityActive;
+    const { facilityName } = this.props.facilityActive.active;
     return (
       <div className="dashboard_blog">
         <div className="dashboard_blog_info">
