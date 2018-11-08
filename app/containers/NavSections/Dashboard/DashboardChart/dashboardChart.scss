@@ -40,7 +40,6 @@
     display: flex;
     align-items: flex-end;
     overflow: hidden;
-    //background-image: linear-gradient(to top, #ff5b79, rgba(248, 186, 198, 0.03));
   }
   .chart_dashboard_elem_block_count {
     display: flex;
@@ -48,9 +47,8 @@
     padding: 0 10px;
     align-items: center;
     height: 0;
-    transition:height 1s ease-out;
-    transition-delay: 1s;
+    //transition:height 1s ease-out;
     width: 100%;
-    //background-color: #ff5b79;
+
   }
 }
