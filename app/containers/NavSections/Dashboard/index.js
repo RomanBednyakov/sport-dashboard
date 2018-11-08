@@ -2,6 +2,7 @@ import React from "react";
 import "./dashboard.scss";
 import DashboardInfo from "./DashboardInfo/";
 import DashboardButtons from "./DashboardButtons/";
+import DashboardChart from "./DashboardChart/";
 import { connect } from "react-redux";
 import {
   getFacilityToday,
@@ -51,7 +52,7 @@ class Dashboard extends React.Component {
           <DashboardInfo facilityActive={facility.facilityActive} />
         </div>
         <div className="dashboard_chart">
-          <div>chart</div>
+          <DashboardChart />
         </div>
       </div>
     );
