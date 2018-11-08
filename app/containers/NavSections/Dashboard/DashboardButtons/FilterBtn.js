@@ -1,6 +1,7 @@
 import React from "react";
 import "./dashboardButtons.scss";
 import checkImg from "../../../../assets/images/chech.svg";
+import NumberFormat from "react-number-format";
 
 class FilterBtn extends React.Component {
   constructor(props) {
@@ -28,7 +29,13 @@ class FilterBtn extends React.Component {
         key={name}
         onClick={this.toggleButtons}
       >
-        <div className="dashboard_buttons_block-count">{count}</div>
+        <div className="dashboard_buttons_block-count">
+          <NumberFormat
+            value={count}
+            displayType={"text"}
+            thousandSeparator={true}
+          />
+        </div>
         <div className="dashboard_buttons_block-name">{name}</div>
         <img
           style={{ display: this.state.isClick ? "block" : "none" }}
