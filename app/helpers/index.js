@@ -1,5 +1,5 @@
 import decode from "jwt-decode";
-class Helpers {
+class helper {
   checkStatus = response => {
     if (response.status >= 200 && response.status < 300) {
       return response;
@@ -39,5 +39,5 @@ class Helpers {
   };
 }
 
-const helpers = new Helpers();
+const helpers = new helper();
 export default helpers;

@@ -6,7 +6,7 @@ import config from "../../config";
 export function getFacilityAll() {
   return dispatch => {
     return api
-      .get(`${config.baseUrl}/facility/all`)
+      .get(`${config.baseUrl}`)
       .then(helpers.checkStatus)
       .then(response =>
         dispatch({

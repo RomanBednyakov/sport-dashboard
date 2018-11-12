@@ -1,3 +1,3 @@
 const hrefUrl = "";
-const baseUrl = "https://sportsanalyticsinc-demo.azurewebsites.net/";
+const baseUrl = "";
 export default { hrefUrl, baseUrl };

@@ -5,9 +5,9 @@ import "./selectDate.scss";
 import SVG from "react-inlinesvg";
 import arrowIcon from "../../assets/images/icons/arrow.svg";
 import calendarIcon from "../../assets/images/calendar.svg";
+// import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
 import moment from "moment";
-import "react-datepicker/dist/react-datepicker.css";
 import { addFacilitySelectDate } from "../../redux/action/facilityFilter";
 
 const mapStateToProps = ({ facilityFilter }) => ({

@@ -129,6 +129,10 @@ const config = {
         ]
       },
       {
+        test: /\.css$/,
+        use: ["to-string-loader", "css-loader"]
+      },
+      {
         test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
         use: [
           {

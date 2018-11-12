@@ -12,7 +12,7 @@ import config from "../../config";
 export function getFacilityToday(id) {
   return dispatch => {
     return api
-      .get(`${config.baseUrl}/analytics/metrics/facility/${id}`)
+      .get(`${config.baseUrl}/${id}`)
       .then(helpers.checkStatus)
       .then(helpersColor.colorButtons)
       .then(response =>
@@ -30,11 +30,7 @@ export function getFacilityToday(id) {
 export function getFacilitySelectDate(id, startDay, endDay) {
   return dispatch => {
     return api
-      .get(
-        `${
-          config.baseUrl
-        }/analytics/metricsByDate/facility/${id}/${startDay}/${endDay}`
-      )
+      .get(`${config.baseUrl}/${id}/${startDay}/${endDay}`)
       .then(helpers.checkStatus)
       .then(helpersColor.colorButtons)
       .then(response =>
