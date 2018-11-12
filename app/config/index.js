@@ -1,3 +1,3 @@
 const hrefUrl = "";
-const baseUrl = "";
+const baseUrl = "example";
 export default { hrefUrl, baseUrl };
